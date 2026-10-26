@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+EXPOSE 8080
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+COPY *.csproj .
+RUN dotnet restore
+
+COPY . .
+
+RUN dotnet publish -c Release -o /app/publish --no-restore /p:UseAppHost=false
+
+FROM base AS runtime
+
+COPY --from=build /app/publish .
+
+ENTRYPOINT ["dotnet", "ContactDemo.dll"]
