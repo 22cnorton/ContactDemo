@@ -1,5 +1,5 @@
 services:
-  dev_db:
+  db:
     image: mcr.microsoft.com/mssql/server:2025-latest
     ports:
       - "1433:1433"
@@ -14,6 +14,25 @@ services:
       timeout: 5s
       retries: 10
       start_period: 20s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=ContactDemo;User Id=sa;Password=${MSSQL_SA_PASSWORD:?Set MSSQL_SA_PASSWORD in .env};Encrypt=True;TrustServerCertificate=True"
+    volumes:
+      - .:/src:Z
+      - /src/bin
+      - /src/obj
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   sql_data:
