@@ -1,0 +1,12 @@
+services:
+  db:
+    volumes:
+      - prod_db:/var/opt/mssql
+  app:
+    build:
+      dockerfile: Dockerfile.prod
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+
+volumes:
+  prod_db:
