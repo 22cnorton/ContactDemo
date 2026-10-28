@@ -37,4 +37,6 @@ public class Contact
     [EnumDataType(typeof(ContactType))]
     [Display(Name = "Contact Type")]
     public ContactType? Type { get; set; }
+    [DataType(DataType.Date)]
+    public DateOnly? Birthday { get; set; }
 }

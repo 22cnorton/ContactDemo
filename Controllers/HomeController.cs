@@ -51,6 +51,7 @@ public class HomeController(ApplicationDbContext context) : Controller
             record.Email = contact.Email;
             record.PhoneNumber = contact.PhoneNumber;
             record.Type = contact.Type;
+            record.Birthday = contact.Birthday;
 
             _context.SaveChanges();
 

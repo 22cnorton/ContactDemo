@@ -31,6 +31,9 @@ namespace ContactDemo.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateOnly?>("Birthday")
+                        .HasColumnType("date");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 

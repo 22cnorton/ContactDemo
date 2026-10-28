@@ -9,17 +9,18 @@
         @foreach (var contact in Model)
         {
             <dt>@contact.Name</dt>
-            <dd class="d-flex gap-2">
-                @Html.ActionLink("Info", "Info", new { contact.Id }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Edit", "Edit", new { contact.Id }, new { @class = "btn btn-success" })
-                @using (Html.BeginForm("Delete","Home", new { id = contact.Id }, FormMethod.Post, null, new
+            <dd>
+                @using (Html.BeginForm("Delete", "Home", new { id = contact.Id }, FormMethod.Post, null, new
                 {
-                    @class = "d-inline mb-0",
                     onsubmit = "return confirm('Are you sure you want to delete this?');"
                 }))
                 {
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <div class="btn-group">
+                        @Html.ActionLink("Info", "Info", new { contact.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Edit", "Edit", new { contact.Id }, new { @class = "btn btn-success" })
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
                 }
             </dd>
         }
