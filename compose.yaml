@@ -21,5 +21,3 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    pre_start:
-      - command: ["dotnet", "ef", "database", "update"]
