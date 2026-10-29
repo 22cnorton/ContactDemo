@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled AS base
 EXPOSE 8080
 WORKDIR /app
 
@@ -13,7 +13,6 @@ COPY . .
 RUN dotnet publish -c Release -o /app/publish --no-restore /p:UseAppHost=false
 
 FROM base AS runtime
-USER app
 
 COPY --from=build /app/publish .
 
