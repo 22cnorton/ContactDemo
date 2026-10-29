@@ -531,3 +531,4 @@ FodyWeavers.xsd
 ### docker ###
 compose*.yaml
 Dockerfile*
+.gitignore
