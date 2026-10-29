@@ -1,5 +1,6 @@
 services:
   db:
+    image: postgres:18-alpine
     volumes:
       - prod_postgres:/var/lib/postgresql
   app:
