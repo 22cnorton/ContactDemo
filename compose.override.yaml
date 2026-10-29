@@ -1,3 +1,5 @@
+name: contactdemo-dev
+
 services:
   db:
     ports:

@@ -1,3 +1,5 @@
+name: contactdemo-prod
+
 services:
   db:
     image: postgres:18-alpine
