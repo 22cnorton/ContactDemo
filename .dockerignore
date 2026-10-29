@@ -527,3 +527,7 @@ FodyWeavers.xsd
 .env
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,aspnetcore,dotenv
+
+### docker ###
+compose*.yaml
+Dockerfile*
