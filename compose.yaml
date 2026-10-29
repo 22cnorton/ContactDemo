@@ -4,6 +4,7 @@ services:
     restart: unless-stopped
     shm_size: 128mb
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_DB: ContactDemo
       POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
 
