@@ -1,7 +1,7 @@
 services:
   db:
     volumes:
-      - prod_db:/var/opt/mssql
+      - prod_postgres:/var/lib/postgresql
   app:
     build:
       dockerfile: Dockerfile.prod
@@ -9,4 +9,4 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
 
 volumes:
-  prod_db:
+  prod_postgres:

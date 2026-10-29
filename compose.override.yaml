@@ -1,9 +1,9 @@
 services:
   db:
     ports:
-      - "1433:1433"
+      - "5432:5432"
     volumes:
-      - dev_db:/var/opt/mssql
+      - dev_postgres:/var/lib/postgresql
   app:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
@@ -15,4 +15,4 @@ services:
       - /src/obj
       
 volumes:
-  dev_db:
+  dev_postgres:
