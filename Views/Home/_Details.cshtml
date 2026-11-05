@@ -1,0 +1,33 @@
+@model Contact
+<dl>
+    @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+    {
+        <dt>@Html.LabelFor(model => model.PhoneNumber)</dt>
+        <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Email))
+    {
+        <dt>@Html.LabelFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+    }
+
+    @if (Model.Address is not null)
+    {
+        <dt>@Html.LabelFor(model => model.Address)</dt>
+        <dd>@Html.DisplayFor(model => model.Address)</dd>
+    }
+
+    @if (Model.Type is not null)
+    {
+        <dt>@Html.LabelFor(model => model.Type)</dt>
+        <dd>@Html.DisplayFor(model => model.Type)</dd>
+    }
+
+    @if (Model.Birthday is not null)
+    {
+        <dt>@Html.LabelFor(model => model.Birthday)</dt>
+        <dd>@Html.DisplayFor(model => model.Birthday)</dd>
+        <dd>Age: @Html.DisplayFor(model => model.Age)</dd>
+    }
+</dl>

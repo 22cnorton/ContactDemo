@@ -1,0 +1,7 @@
+@model ContactType?
+
+@Html.DropDownListFor(
+    model => model,
+    Html.GetEnumSelectList<ContactType>(),
+    "Select a contact type",
+    new { @class = "form-select" })

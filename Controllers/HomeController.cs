@@ -9,20 +9,21 @@ namespace ContactDemo.Controllers;
 public class HomeController(ApplicationDbContext context) : Controller
 {
     private readonly ApplicationDbContext _context = context;
-    public IActionResult Index()
-    {
-        return View(_context.Contacts);
-    }
+    public IActionResult Index() => View(from c in _context.Contacts orderby c.FirstName, c.LastName select c);
 
     public IActionResult Edit(Guid? id)
     {
-        var contact = _context.Contacts.Find(id);
+        var contact = id is Guid contactId
+            ? _context.Contacts
+                .SingleOrDefault(x => x.Id == contactId)
+            : null;
 
         if (contact is null)
         {
             ViewBag.IsNew = true;
         }
-        contact ??= new() { FirstName = "", LastName = "" };
+        contact ??= new() { Address = new Address() };
+        contact.Address ??= new Address();
 
         return View(contact);
     }
@@ -35,14 +36,29 @@ public class HomeController(ApplicationDbContext context) : Controller
             return NotFound("Missmatched Ids");
         }
 
+        if (contact.Address is { } address &&
+            string.IsNullOrWhiteSpace(address.Line) &&
+            string.IsNullOrWhiteSpace(address.Line2) &&
+            string.IsNullOrWhiteSpace(address.Town) &&
+            string.IsNullOrWhiteSpace(address.State) &&
+            string.IsNullOrWhiteSpace(address.Zip))
+        {
+            contact.Address = null;
+            ModelState.Remove("Address.Line");
+            ModelState.Remove("Address.Line2");
+            ModelState.Remove("Address.Town");
+            ModelState.Remove("Address.State");
+            ModelState.Remove("Address.Zip");
+        }
+
         if (ModelState.IsValid)
         {
-            var record = _context.Contacts.Find(id);
+            var record = _context.Contacts.SingleOrDefault(x => x.Id == id);
 
             if (record is null)
             {
-                record = new Contact { FirstName = "", LastName = "" };
-                _context.Contacts.Add(record);
+                record = new Contact();
+                _context.Add(record);
             }
 
             record.FirstName = contact.FirstName;
@@ -57,10 +73,13 @@ public class HomeController(ApplicationDbContext context) : Controller
 
             return RedirectToAction(nameof(Index));
         }
+
+        ViewBag.IsNew = id == Guid.Empty;
+        contact.Address ??= new Address();
         return View(contact);
     }
 
-    public IActionResult Info(Guid id) => View(_context.Contacts.Find(id));
+    public IActionResult Info(Guid id) => View(_context.Contacts.SingleOrDefault(x => x.Id == id));
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -87,4 +106,9 @@ public class HomeController(ApplicationDbContext context) : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult Locations(ContactType? type) => View(from c in _context.Contacts
+                                                              orderby c.FirstName, c.LastName
+                                                              where type == null || c.Type == type
+                                                              select c);
 }

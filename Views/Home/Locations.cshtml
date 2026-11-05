@@ -1,0 +1,56 @@
+@model IEnumerable<Contact>
+@{
+    ViewData["Title"] = "Locations";
+    var selectedType = Context.Request.Query["type"].ToString();
+}
+
+<h1>Locations</h1>
+
+@using (Html.BeginForm(FormMethod.Get))
+{
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                @Html.DropDownList(
+                    "type",
+                    Html.GetEnumSelectList<ContactType>(),
+                    "Select a type",
+                    new { @class = "form-select", onchange = "this.form.requestSubmit()" })
+            </div>
+        </div>
+    </div>
+}
+<br />
+@if (Model is not null)
+{
+    <table class="table table-striped table-bordered" id="locationsTable">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Address)</th>
+            @if (string.IsNullOrEmpty(selectedType))
+            {
+                <th>@Html.DisplayNameFor(model => model.First().Type)</th>
+            }
+        </tr>
+        @foreach (var contact in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(_ => contact.Name)</td>
+                <td>
+                    @if (contact.Address is not null)
+                    {
+                        @Html.DisplayFor(_ => contact.Address)
+                    }
+                    else
+                    {
+                        <span>No address</span>
+                    }
+                </td>
+                @if (string.IsNullOrEmpty(selectedType))
+                {
+                    <td>@Html.DisplayFor(_ => contact.Type)</td>
+                }
+            </tr>
+        }
+    </table>
+}

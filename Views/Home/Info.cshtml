@@ -1,6 +1,6 @@
 @model Contact
 @{
-    ViewData["Title"] = "Edit Contact";
+    ViewData["Title"] = Model.Name;
     var IsNew = (bool)(ViewBag.IsNew ?? false);
 
     var htmlAttributes = new
@@ -21,22 +21,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <dl>
-            <dt>@Html.LabelFor(model => model.PhoneNumber)</dt>
-            <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
-
-            <dt>@Html.LabelFor(model => model.Email)</dt>
-            <dd>@Html.DisplayFor(model => model.Email)</dd>
-
-            <dt>@Html.LabelFor(model => model.Address)</dt>
-            <dd>@Html.DisplayFor(model => model.Address)</dd>
-
-            <dt>@Html.LabelFor(model => model.Type)</dt>
-            <dd>@Html.DisplayFor(model => model.Type)</dd>
-
-            <dt>@Html.LabelFor(model => model.Birthday)</dt>
-            <dd>@Html.DisplayFor(model => model.Birthday)</dd>
-        </dl>
+        @await Html.PartialAsync("./_Details.cshtml", Model)
     </div>
 </div>
 

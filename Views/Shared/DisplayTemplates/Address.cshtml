@@ -1,0 +1,10 @@
+@model Address
+
+<address>
+    @Model.Line<br />
+    @if (!string.IsNullOrWhiteSpace(Model.Line2))
+    {
+        @Model.Line2<br />
+    }
+    @Model.Town, @Model.State @Model.Zip
+</address>

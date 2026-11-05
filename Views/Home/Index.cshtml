@@ -3,6 +3,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+<h1>Contacts</h1>
+
 @if (Model is not null)
 {
     <dl>
@@ -20,10 +22,20 @@
                         @Html.ActionLink("Info", "Info", new { contact.Id }, new { @class = "btn btn-info" })
                         @Html.ActionLink("Edit", "Edit", new { contact.Id }, new { @class = "btn btn-success" })
                         <button type="submit" class="btn btn-danger">Delete</button>
+                        @if (contact.HasInfo)
+                        {
+                            <button type="button" data-bs-toggle="collapse" data-bs-target="#quickEdit_@contact.Id"
+                                    class='btn btn-secondary'>Quick View</button>
+                        }
                     </div>
                 }
+            </dd>
+            <dd class="collapse col-md-6" id="quickEdit_@contact.Id">
+                @await Html.PartialAsync("_Details", contact)
             </dd>
         }
     </dl>
 }
+
 @Html.ActionLink("Add New", "Edit", new { }, new { @class = "btn btn-primary" })
+

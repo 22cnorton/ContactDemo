@@ -1,0 +1,36 @@
+@model Address
+
+<address>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Line)
+            @Html.TextBoxFor(m => m.Line, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Line, null, new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Line2)
+            @Html.TextBoxFor(m => m.Line2, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Line2, null, new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(m => m.Town)
+            @Html.TextBoxFor(m => m.Town, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Town, null, new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-3">
+            @Html.LabelFor(m => m.State)
+            @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.State, null, new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-9">
+            @Html.LabelFor(m => m.Zip)
+            @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Zip, null, new { @class = "text-danger" })
+        </div>
+
+    </div>
+</address>

@@ -11,4 +11,11 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Contact> Contacts { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Contact>()
+            .Property(contact => contact.Type)
+            .HasConversion<string>();
+    }
 }
